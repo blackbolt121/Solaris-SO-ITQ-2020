@@ -9,7 +9,6 @@ void namedFile();
 void instrucciones();
 void instalator();
 void action(const string s);
-void scriptApagadoReinicio();
 
 string dominio, ip2="", ip, reverse_ip, hostname, narch, command, porcion_host;
 int main(){
@@ -159,17 +158,4 @@ void action(const string s){
 
 	system(s.c_str());
 	getchar();
-}
-void scriptApagadoReinicio(){
-	ofstream arch("apagado.sh");
-	if(arch.is_open()){
-		arch << "#!/bin/bash" << endl;
-		arch << "if [$1 -eq 0]; then" << endl << "\texit\n\tlogout\n\t\techo \"apagando\"" << endl << "\tshutdown -y -g10 -i5" << endl;
-		arch << "elif [%1 -eq 1] then" << endl << "\texit\n\tlogout\n\t\techo \"reiniciando\"" << endl << "\tshutdown -y -g10 -i6"<< endl;
-		arch << "else" << endl << "echo \"Cerrando programa...\"" << endl << "fi"<<endl;
-		arch.close();
-		system("sudo su");
-		system("chmod 777 apagado.sh");
-		system("exit");
-	}
 }
