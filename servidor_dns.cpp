@@ -17,14 +17,12 @@ string dominio, ip2="", ip, reverse_ip, hostname, narch, porcion_red="", porcion
 int main(){
 
 	crearArchivoApgadoReinicio();
-	system("rm *.db");
-	system("rm *.conf");
+	
 	capturarDatos();
 	archivoDNS();
 	archivoDNSReverso();
 	namedFile();
-	crearArchivoDHCPv4();
-	crearArchivoDHCPv6();
+	
 
 	cout << hostname << endl;
 	cout << ip << endl;
@@ -40,8 +38,10 @@ int main(){
 	return 0;
 }
 void installer(){
-
+	crearArchivoApagadoReinicio();
 	//Habilitamos SSH
+	system("rm *.db");
+	system("rm *.conf");
 	system("svcadm enable ssh");
 	system("pkg update");
 	
@@ -54,18 +54,20 @@ void installer(){
 	namedFile();
 	action("ls -l");
 	system("clear");
-	ofstream arch("dhcpd6.conf");
-	getline(cin, interfaz, '\n');
-	
-
-
-	
-
-
+	cout << "Creando archivos de DHCPv4 " << endl;
+	crearArchivoDHCPv4();
+	cout << "Creando archivos de DHCPv6 " << endl;
+	crearArchivoDHCPv6();
+	cout << "Se mueve el archivo de configuracion de DHCPv4 a /etc/inet " << endl;
+	action("mv dhcpd4.conf /etc/inet");
+	cout << "Se mueve el archivo de configuracion de DHCPv6 a /etc/inet " << endl;
+	action("mv dhcpd4.conf /etc/inet");
+	cout << "Activando servidor DHCPv4..." << endl;
+	action("svcadm enable dhcp/server:ipv4");
+	action("svcadm enable dhcp/server:ipv6");
 	//Instalamos el servicio de DNS
 	action("package install pkg install service/network/dns/bind");
 	//Creamos los archivos correspondientes
-
 	//Guardamos el nombre de nuestros archivos
 	char rpt;
 	string filename1 = dominio + ".db";
