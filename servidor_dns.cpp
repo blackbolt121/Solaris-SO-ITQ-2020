@@ -46,6 +46,10 @@ void installer(){
 	
 	cout << "Generando archivos de configuracion necesarios...." << endl << "Rellene los campos del formulario..." << endl;
 	capturarDatos();
+	cout << "Creando archivos de DHCPv4 " << endl;
+	crearArchivoDHCPv4();
+	cout << "Creando archivos de DHCPv6 " << endl;
+	crearArchivoDHCPv6();
 	archivoDNS();
 	action("ls -l");
 	archivoDNSReverso();
@@ -53,14 +57,11 @@ void installer(){
 	namedFile();
 	action("ls -l");
 	system("clear");
-	cout << "Creando archivos de DHCPv4 " << endl;
-	crearArchivoDHCPv4();
-	cout << "Creando archivos de DHCPv6 " << endl;
-	crearArchivoDHCPv6();
+	
 	cout << "Se mueve el archivo de configuracion de DHCPv4 a /etc/inet " << endl;
 	action("mv dhcpd4.conf /etc/inet");
 	cout << "Se mueve el archivo de configuracion de DHCPv6 a /etc/inet " << endl;
-	action("mv dhcpd4.conf /etc/inet");
+	action("mv dhcpd6.conf /etc/inet");
 	cout << "Activando servidor DHCPv4..." << endl;
 	action("svcadm enable dhcp/server:ipv4");
 	action("svcadm enable dhcp/server:ipv6");
@@ -73,14 +74,16 @@ void installer(){
 	string filename2 = reverse_ip + ".db";
 	action("mkdir /var/dump");
 	action("mkdir /var/stats");
-	action("mkdir -p /var/run/namedb");
-	action("mkdir -p /etc/namedb/master");
-	action("mkdir -p /etc/namedb/working");
+	action("mkdir -p /var/run/namedb || echo \"listo directorio /var/run/namedb/ ya creado\"");
+	action("mkdir -p /etc/namedb/master || echo \"listo directorio /etc/namedb/master ya creado\"");
+	action("mkdir -p /etc/namedb/working || \"listo directorio /etc/namedb/workingr ya creado\"");
 
 	//Movemos los archivos a las carpetas correspondientes
 	action("mv named.conf /etc/");
-	action("mv " + filename1 + "/etc/namedb/master/");
-	action("mv " + filename2 + "/etc/namedb/master/");
+	cout << "Moviendo: " << filename1 << endl;
+	action("sudo mv " + filename1 + "/etc/namedb/master/");
+	cout << "Moviendo: " << filename2 << endl;
+	action("sudo mv " + filename2 + "/etc/namedb/master/");
 
 	//Validamos que la configuracion de nuestros archivos funcionen
 	cout << "Moviendo el archivo de configuracion a /etc/" << endl;
@@ -97,9 +100,9 @@ void installer(){
 	}else{
 		cout << "Habilitando servicio DNS... " << endl;
 		cout << "Refrescando el servicio DNS..." << endl;
-		action("svcadm refresh dns/server");
+		action("sudo svcadm refresh dns/server");
 		cout << "Habilitando el servicio DNS..." << endl;
-		action("svcadm enable dns/server");
+		action("sudo svcadm enable dns/server");
 		cout << "Mostrando el status del servicio..." << endl;
 		action("svcs dns/server");
 
