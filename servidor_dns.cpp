@@ -218,7 +218,7 @@ void crearArchivoDHCPv4(){
 	ofstream file("dhcpd4.conf");
 	if(file.good()){
 		
-		file << "subnet " << porcion_host +".0" << " netmask 255.255.255"  << '{' << endl;
+		file << "subnet " << porcion_red +".0" << " netmask 255.255.255.0"  << '{' << endl;
 		file << "interface " << interfaz << "; " << endl;
 		file << "range " << porcion_red + "." + rango_inferior << " " << porcion_red + "." + rango_superior << "; " << endl;
 		file << "option routers " << porcion_red + "." + "0" << "; " << endl;
