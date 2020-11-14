@@ -16,21 +16,7 @@ void action(const string s);
 string dominio, ip2="", ip, reverse_ip, hostname, narch, porcion_red="", porcion_host="", interfaz="", rango_inferior="", rango_superior="";
 int main(){
 
-	crearArchivoApagadoReinicio();
-	capturarDatos();
-	archivoDNS();
-	archivoDNSReverso();
-	namedFile();
-	
-
-	cout << hostname << endl;
-	cout << ip << endl;
-	cout << reverse_ip << endl;
-	cout << porcion_host << endl;
-	cout << porcion_red << endl;
-	cout << interfaz << endl;
-	cout << rango_inferior << endl;
-	cout << rango_superior << endl;
+	installer();
 	
 
 	
