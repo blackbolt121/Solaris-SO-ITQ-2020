@@ -67,9 +67,9 @@ void installer(){
 	//Movemos los archivos a las carpetas correspondientes
 	action("mv named.conf /etc/");
 	cout << "Moviendo: " << filename1 << endl;
-	action("sudo mv " + filename1 + "/etc/namedb/master/");
+	action("mv -f " + filename1 + " /etc/namedb/master/");
 	cout << "Moviendo: " << filename2 << endl;
-	action("sudo mv " + filename2 + "/etc/namedb/master/");
+	action("mv -f "  + filename2 + " /etc/namedb/master/");
 
 	//Validamos que la configuracion de nuestros archivos funcionen
 	cout << "Moviendo el archivo de configuracion a /etc/" << endl;
@@ -135,7 +135,6 @@ void capturarDatos(){
 			porcion_red +=".";
 		}
 	}
-	cout << "Por host: " << porcion_host << endl;
 	var="";
 	for(int i = 2; i>=0; i--){
 		var+=n[i];
@@ -230,7 +229,7 @@ void crearArchivoDHCPv4(){
 }
 
 void action(const string s){
-
+	cout << "Ejecutando... " << s << endl;
 	system(s.c_str());
 	getchar();
 }
