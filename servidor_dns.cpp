@@ -103,6 +103,13 @@ void installer(){
 	action("svccfg -s name-service/switch setprop config/ipnodes = astring: '\"files dns\"'");
 	action("svccfg -s name-service/switch setprop config/host = astring: '\"files dns\"'");
 	action("svccfg -s network/dns/client listprop config");
+	action("svcadm refresh network/dns/client:default");
+	action("svcadm restart dns/client");
+	action("nscfg export svc:/network/dns/client:default");
+	action("svcadm refresh name-service/switch");
+	action("svcadm refresh name-service/cache"),
+	action("svcadm restart name-service/switch");
+	action("svcadm restart  name-service/cache");
 
 }
 void capturarDatos(){
