@@ -10,14 +10,13 @@ void crearArchivoDHCPv6();
 void namedFile();
 void instrucciones();
 void installer();
-void crearArchivoApgadoReinicio();
+void crearArchivoApagadoReinicio();
 void action(const string s);
 
 string dominio, ip2="", ip, reverse_ip, hostname, narch, porcion_red="", porcion_host="", interfaz="", rango_inferior="", rango_superior="";
 int main(){
 
-	crearArchivoApgadoReinicio();
-	
+	crearArchivoApagadoReinicio();
 	capturarDatos();
 	archivoDNS();
 	archivoDNSReverso();
