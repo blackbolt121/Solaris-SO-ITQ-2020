@@ -75,9 +75,9 @@ void installer(){
 	cout << "Moviendo el archivo de configuracion a /etc/" << endl;
 	action("named-checkconf /etc/named.conf");
 	cout << "Moviendo archivo de configuracion DNS a /var/namedb/master" << endl;
-	action("named-checkzone " + dominio + " /var/namedb/master/"+filename1);
+	action("named-checkzone " + dominio + " /etc/namedb/master/"+filename1);
 	cout << "Moviendo archivo de configuracion DNS reverso a /var/namedb/master" << endl;
-	action("named-checkzone " + dominio + " /var/namedb/master/"+filename2);
+	action("named-checkzone " + dominio + " /etc/namedb/master/"+filename2);
 
 	cout << "Desea habilitar el servidor DNS (S/N): " << endl;
 	cin >> rpt;
