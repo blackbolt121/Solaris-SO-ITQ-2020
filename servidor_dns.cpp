@@ -206,7 +206,7 @@ void namedFile(){
 
 void crearArchivoDHCPv6()
 {
-	ofstream arch("dhcp6.conf");
+	ofstream arch("dhcpd6.conf");
 	if(arch.good()){
 		arch << "subnet6 2001:db8:0:1::/64{" << endl;
 		arch << "\tinterface " << interfaz<< ";" << endl;
