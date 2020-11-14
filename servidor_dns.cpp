@@ -75,9 +75,9 @@ void installer(){
 	cout << "Moviendo el archivo de configuracion a /etc/" << endl;
 	action("named-checkconf /etc/named.conf");
 	cout << "Moviendo archivo de configuracion DNS a /var/namedb/master" << endl;
-	action("named-checkzone " + dominio + "/var/namedb/master/"+filename1);
+	action("named-checkzone " + dominio + " /var/namedb/master/"+filename1);
 	cout << "Moviendo archivo de configuracion DNS reverso a /var/namedb/master" << endl;
-	action("named-checkzone " + dominio + "/var/namedb/master/"+filename2);
+	action("named-checkzone " + dominio + " /var/namedb/master/"+filename2);
 
 	cout << "Desea habilitar el servidor DNS (S/N): " << endl;
 	cin >> rpt;
@@ -220,9 +220,9 @@ void crearArchivoDHCPv4(){
 		
 		file << "subnet " << porcion_host +".0" << " netmask 255.255.255"  << '{' << endl;
 		file << "interface " << interfaz << "; " << endl;
-		file << "range " << rango_inferior << " " << rango_superior << "; " << endl;
-		file << "option routers " << porcion_host+".0" << "; " << endl;
-		file << "option broadcast-address " << porcion_host +".255" << "; " <<endl;
+		file << "range " << porcion_red + "." + rango_inferior << " " << porcion_red + "." + rango_superior << "; " << endl;
+		file << "option routers " << porcion_red + "." + "0" << "; " << endl;
+		file << "option broadcast-address " << porcion_red + ".255" << "; " <<endl;
 		file <<'}' << '\n' << endl;
 		file.close();
 	}
