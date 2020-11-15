@@ -52,7 +52,7 @@ void installer(){
 	action("svcadm enable dhcp/server:ipv4");
 	action("svcadm enable dhcp/server:ipv6");
 	//Instalamos el servicio de DNS
-	action("package install pkg install service/network/dns/bind");
+	action("pkg install service/network/dns/bind");
 	//Creamos los archivos correspondientes
 	//Guardamos el nombre de nuestros archivos
 	char rpt;
