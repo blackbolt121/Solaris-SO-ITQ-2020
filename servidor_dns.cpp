@@ -8,9 +8,11 @@ int main(){
 	if(r == 's' || r == 'S'){
 		InstallerAsistant aux;
 		aux.installer();
-	}else{
+	}else if(r == 'n' || r == 'N'){
 		InstallerAsistant aux = InstallerAsistant::leerArchivo("save.conf");
 		aux.installer2();
+	}else{
+		
 	}
 	
 	return 0;
