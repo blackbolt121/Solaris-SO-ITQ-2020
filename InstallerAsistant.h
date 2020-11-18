@@ -384,6 +384,7 @@ void InstallerAsistant::installer2(){
     cout << "validate" << endl;
     cout << "exit" << endl;
     action("svccfg");
+	/*
     cout << "Muy bien, ahora ejecutaremos un script... solo ejecuta el archivo \"auxiliar.sh\"" << endl;
     transform(activedirectory.begin(), activedirectory.end(), activedirectory.begin(), ::toupper);
 	string aux2 = activedirectory;
@@ -392,6 +393,7 @@ void InstallerAsistant::installer2(){
     action("domainjoin-cli join "+aux2+" Administrador@"+activedirectory);
     action("svcadm enable -r network/smb/client");
     action("smbadm show-shares -u Administrador " + activedirectory);
+	*/
     
 }
 
