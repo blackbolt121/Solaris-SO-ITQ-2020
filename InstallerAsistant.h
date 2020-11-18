@@ -345,6 +345,9 @@ void InstallerAsistant::installer(){
 	
     this->crearArchivoApagadoReinicio();
     this->escribirArchivo();
+
+
+	cout << "Instalando el servicio para compartir archivos..." << endl;
 	action("pkg install service/file-system/smb");
 	string nombrecarpeta;
 	getline(cin, nombrecarpeta, '\n');
