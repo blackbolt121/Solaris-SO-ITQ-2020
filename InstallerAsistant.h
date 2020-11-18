@@ -42,12 +42,13 @@ class InstallerAsistant{
 void InstallerAsistant::escribirArchivo(){
     ofstream file("save.conf");
     if(file.is_open()){
-        file << dominio << endl;
+        file << user << endl;
+		file << dominio << endl;
         file << ip << endl;
         file << hostname << endl;
         file << interfaz << endl;
         file << rango_inferior << endl;
-        file << rango_superior;
+        file << rango_superior << endl;
         file.close();
     }
 }
