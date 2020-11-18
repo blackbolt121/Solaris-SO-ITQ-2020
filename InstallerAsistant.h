@@ -195,11 +195,13 @@ void InstallerAsistant::namedFile(){
 		arch << "\ttype master;" << endl;
 		arch << "\tfile \"/etc/namedb/master/" << reverse_ip << ".db\";" << endl;
 		arch << "};" << endl;
-		arch.close();
+		
 		cout << "Archivo named.conf creado" << endl;
+		getchar();
 	}else{
 		cout << "No creado archivo named.conf" << endl;
 	}
+	arch.close();
 }
 void InstallerAsistant::action(const string s){
 	cout << "Ejecutando... " << s << endl;
