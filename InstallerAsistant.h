@@ -341,8 +341,25 @@ void InstallerAsistant::installer(){
 	action("svcadm restart  name-service/cache");
     cout << "Creando sus archivos para poder apagar y prender el servidor..." << endl;
     action("pkg install network/smb/client");
+
+	
     this->crearArchivoApagadoReinicio();
     this->escribirArchivo();
+	action("pkg install service/file-system/smb");
+	string nombrecarpeta;
+	getline(cin, nombrecarpeta, '\n');
+	action("zfs create -o share.smb=on -o nbmand=on -o share.smb.csc=auto -o share.smb.guestok=on rpool/smb_"+nombrecarpeta);
+	action("zfs get sharesmb rpool/smb_"+nombrecarpeta);
+	action("svcadm enable -r smb/server");
+	action("svcs -a | grep smb");
+	string nombre;
+	getline(cin, nombre, '\n');
+	action("useradd " + nombre);
+	cout << "Digite su contraseña..." << endl;
+	action("passwd " + nombre);
+	action("smbadm enable-user " + nombre);
+	action("smbadm lookup-user " + nombre);
+
 }
 
 void InstallerAsistant::installer2(){
