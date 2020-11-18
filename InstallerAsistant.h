@@ -350,13 +350,13 @@ void InstallerAsistant::installer(){
 	cout << "Instalando el servicio para compartir archivos..." << endl;
 	action("pkg install service/file-system/smb");
 	string nombrecarpeta;
-	getline(cin, nombrecarpeta, '\n');
+	cout << "Digite el nombre de la carpeta: "; getline(cin, nombrecarpeta, '\n');
 	action("zfs create -o share.smb=on -o nbmand=on -o share.smb.csc=auto -o share.smb.guestok=on rpool/smb_"+nombrecarpeta);
 	action("zfs get sharesmb rpool/smb_"+nombrecarpeta);
 	action("svcadm enable -r smb/server");
 	action("svcs -a | grep smb");
 	string nombre;
-	getline(cin, nombre, '\n');
+	cout << "Digite el nombre del usuario en samba: "; getline(cin, nombre, '\n');
 	action("useradd " + nombre);
 	cout << "Digite su contraseña..." << endl;
 	action("passwd " + nombre);
