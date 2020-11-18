@@ -176,8 +176,7 @@ void InstallerAsistant::archivoDNS()
 	arch.close();
 }
 void InstallerAsistant::namedFile(){
-	string narch = "named.conf";
-	ofstream arch(narch.c_str());
+	ofstream arch("named.conf");
 	if(arch.is_open()){
 
 		arch << "options {" << endl;
@@ -197,7 +196,9 @@ void InstallerAsistant::namedFile(){
 		arch << "\tfile \"/etc/namedb/master/" << reverse_ip << ".db\";" << endl;
 		arch << "};" << endl;
 		arch.close();
-		getchar();
+		cout << "Archivo named.conf creado" << endl;
+	}else{
+		cout << "No creado archivo named.conf" << endl;
 	}
 }
 void InstallerAsistant::action(const string s){
