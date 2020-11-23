@@ -362,39 +362,7 @@ void InstallerAsistant::installer(){
 	action("passwd " + nombre);
 	action("smbadm enable-user " + nombre);
 	action("smbadm lookup-user " + nombre);
+	action("chmod -R 777 rpool/smb_"+nombrecarpeta);
 
 }
-
-void InstallerAsistant::installer2(){
-    string temporalip, activedirectory, netbios;
-    cout << "Digite el netbios: "; getline(cin, netbios, '\n');
-    cout << "Digite la ip de su servidor de windows server: "; getline(cin, temporalip, '\n');
-    cout << "Digite el dominio de su active directory de windows server: "; getline(cin, activedirectory, '\n');
-    cout << "A continuacion usted debe de digitar los siguientes comandos ya que no son asistidos, sin embargo copielos y peguelos en otra parte y escribalos en ese orden: " << endl;
-    cout << "select dns/client" << endl;
-    cout << "setprop config/search = astring: (" << dominio << " " << activedirectory << ")" << endl;
-    cout << "setprop config/nameserver = net_address: (" << ip << " " << temporalip << ")";
-    cout << "select dns/client:default" << endl;
-    cout << "refresh" << endl;
-    cout << "validate" << endl;
-    cout << "select name-service/switch" << endl;
-    cout << "setprop config/host = astring: \"files dns\"" << endl;
-    cout << "select system/name-service/switch:default" << endl;
-    cout << "refresh" << endl;
-    cout << "validate" << endl;
-    cout << "exit" << endl;
-    action("svccfg");
-	/*
-    cout << "Muy bien, ahora ejecutaremos un script... solo ejecuta el archivo \"auxiliar.sh\"" << endl;
-    transform(activedirectory.begin(), activedirectory.end(), activedirectory.begin(), ::toupper);
-	string aux2 = activedirectory;
-	transform(activedirectory.begin(), activedirectory.end(), activedirectory.begin(), ::tolower);
-    action("./auxiliar.sh");
-    action("domainjoin-cli join "+aux2+" Administrador@"+activedirectory);
-    action("svcadm enable -r network/smb/client");
-    action("smbadm show-shares -u Administrador " + activedirectory);
-	*/
-    
-}
-
 
