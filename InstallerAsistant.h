@@ -362,7 +362,7 @@ void InstallerAsistant::installer(){
 	action("passwd " + nombre);
 	action("smbadm enable-user " + nombre);
 	action("smbadm lookup-user " + nombre);
-	action("chmod -R 777 rpool/smb_"+nombrecarpeta);
+	action("chmod -R 777 /rpool/smb_"+nombrecarpeta);
 
 }
 
