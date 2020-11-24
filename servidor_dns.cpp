@@ -10,7 +10,7 @@ int main(){
 		aux.installer();
 	}else if(r == 'n' || r == 'N'){
 		InstallerAsistant aux = InstallerAsistant::leerArchivo("save.conf");
-		aux.installer2();
+		//aux.installer2();
 	}else{
 		
 	}
