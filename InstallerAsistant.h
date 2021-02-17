@@ -206,6 +206,7 @@ void InstallerAsistant::namedFile(){
 void InstallerAsistant::action(const string s){
 	cout << "Ejecutando... " << s << endl;
 	system(s.c_str());
+	cout << endl << "Presiona enter -->";
 	getchar();
 }
 void InstallerAsistant::crearArchivoDHCPv6()
@@ -340,28 +341,28 @@ void InstallerAsistant::installer(){
 	action("svcadm restart name-service/switch");
 	action("svcadm restart  name-service/cache");
     cout << "Creando sus archivos para poder apagar y prender el servidor..." << endl;
-    action("pkg install network/smb/client");
-
-	
+    action("pkg install network/smb/client");	
     this->crearArchivoApagadoReinicio();
     this->escribirArchivo();
-
-
-	cout << "Instalando el servicio para compartir archivos..." << endl;
-	action("pkg install service/file-system/smb");
-	string nombrecarpeta;
-	cout << "Digite el nombre de la carpeta: "; getline(cin, nombrecarpeta, '\n');
-	action("zfs create -o share.smb=on -o nbmand=on -o share.smb.csc=auto -o share.smb.guestok=on rpool/smb_"+nombrecarpeta);
-	action("zfs get sharesmb rpool/smb_"+nombrecarpeta);
-	action("svcadm enable -r smb/server");
-	action("svcs -a | grep smb");
-	string nombre;
-	cout << "Digite el nombre del usuario en samba: "; getline(cin, nombre, '\n');
-	action("useradd " + nombre);
-	cout << "Digite su contraseña..." << endl;
-	action("passwd " + nombre);
-	action("smbadm enable-user " + nombre);
-	action("smbadm lookup-user " + nombre);
-	action("chmod -R 777 /rpool/smb_"+nombrecarpeta);
+	cout << "¿Desea instalar el servicio para compartir archivos? (S/N): ";
+	cin >> rpt;
+	if(!(rpt == 's' || rpt == 'S')){
+		cout << "Instalando el servicio para compartir archivos..." << endl;
+		action("pkg install service/file-system/smb");
+		string nombrecarpeta;
+		cout << "Digite el nombre de la carpeta: "; getline(cin, nombrecarpeta, '\n');
+		action("zfs create -o share.smb=on -o nbmand=on -o share.smb.csc=auto -o share.smb.guestok=on rpool/smb_"+nombrecarpeta);
+		action("zfs get sharesmb rpool/smb_"+nombrecarpeta);
+		action("svcadm enable -r smb/server");
+		action("svcs -a | grep smb");
+		string nombre;
+		cout << "Digite el nombre del usuario en samba: "; getline(cin, nombre, '\n');
+		action("useradd " + nombre);
+		cout << "Digite su contraseña..." << endl;
+		action("passwd " + nombre);
+		action("smbadm enable-user " + nombre);
+		action("smbadm lookup-user " + nombre);
+		action("chmod -R 777 /rpool/smb_"+nombrecarpeta);
+	}
 
 }
