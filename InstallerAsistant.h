@@ -293,6 +293,7 @@ void InstallerAsistant::installer(){
 
 
 	//Movemos los archivos a las carpetas correspondientes
+	cout << "Moviendo: named.conf" << endl; 
 	action("mv named.conf /etc/");
 	cout << "Moviendo: " << filename1 << endl;
 	action("mv -f " + filename1 + " /etc/namedb/master/");
@@ -340,13 +341,12 @@ void InstallerAsistant::installer(){
 	action("svcadm refresh name-service/cache"),
 	action("svcadm restart name-service/switch");
 	action("svcadm restart  name-service/cache");
-    cout << "Creando sus archivos para poder apagar y prender el servidor..." << endl;
-    action("pkg install network/smb/client");	
+    cout << "Creando sus archivos para poder apagar y prender el servidor..." << endl;	
     this->crearArchivoApagadoReinicio();
     this->escribirArchivo();
 	cout << "¿Desea instalar el servicio para compartir archivos? (S/N): ";
 	cin >> rpt;
-	if(!(rpt == 's' || rpt == 'S')){
+	if(rpt == 's' || rpt == 'S'){
 		cout << "Instalando el servicio para compartir archivos..." << endl;
 		action("pkg install service/file-system/smb");
 		string nombrecarpeta;
