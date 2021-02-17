@@ -365,4 +365,3 @@ void InstallerAsistant::installer(){
 	action("chmod -R 777 /rpool/smb_"+nombrecarpeta);
 
 }
-

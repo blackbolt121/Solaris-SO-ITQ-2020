@@ -1,0 +1,75 @@
+options {
+        directory       "/etc/namedb/working";
+        pid-file        "/var/run/named/pid";
+        dump-file       "/var/dump/named_dump.db";
+        statistics-file "/var/stats/named.stats";
+};
+
+zone "rego.com" {
+        type master;
+        file "/etc/namedb/master/rego.com.db";
+};
+
+zone "2.168.192.in-addr.arpa" {
+        type master;
+        file "/etc/namedb/master/2.168.192.db";
+};
+
+mkdir /var/dump
+mkdir /var/stats
+mkdir -p /var/run/namedb
+mkdir -p /etc/namedb/master
+mkdir -p /etc/namedb/working
+
+$TTL 3h
+@       IN      SOA     server.rego.com. root.server.rego.com. (
+        2013022744
+        28800
+        3600
+        604800
+        38400
+)
+
+rego.com.     IN      NS      server.rego.com.
+
+$TTL 3h
+@       IN      SOA     server.rego.com. root.rego.com. (
+        2013022744
+        28800
+        3600
+        604800
+        38400
+)
+
+        IN      NS      server.rego.com.
+9      IN      PTR     server.rego.com
+
+named-checkconf /etc/named.conf
+named-checkzone dominio /etc/namedb/master/dominio.db
+named-checkzone dominio /etc/namedb/master/procion_red_ip_inversa.db
+svcadm refresh dns/server
+svcadm restart dns/server
+svcadm enable dns/server
+
+
+
+svccfg -s network/dns/client setprop config/nameserver = net_address: 192.168.2.8
+svccfg -s network/dns/client setprop config/domain = astring: rego.com
+svccfg -s network/dns/client setprop config/search = astring: rego.com
+svccfg -s name-service/switch setprop config/ipnodes = astring: '"files dns"'
+svccfg -s name-service/switch setprop config/host = astring: '"files dns"'
+svccfg -s network/dns/client listprop config
+
+svcadm refresh network/dns/client:default
+svcadm restart dns/client
+
+nscfg export svc:/network/dns/client:default
+cat /etc/resolv.conf
+
+/usr/sbin/nscfg import -f name-service/switch
+svcadm refresh name-service/switch
+svcadm refresh name-service/cache
+svcadm restart name-service/switch
+svcadm restart  name-service/cache
+
+nslookup server

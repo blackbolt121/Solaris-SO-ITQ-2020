@@ -1,0 +1,12 @@
+sudo su
+pkg update
+svcadm enable ssh
+pkg install git
+pkg install gcc
+git clone https://github.com/blackbolt121/Solaris-SO-ITQ-2020
+chmod 777 ejecutar.sh
+./ejecutar.sh
+https://drive.google.com/file/d/1LJ7n7WSbFsHpAL7Q6czO7c3EYX6BoFxu/view
+4426239702
+mount -F smbfs -o user=administrador,domain=gore.com //WINSERV/Archivos /Archivos
+Listo :)
