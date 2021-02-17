@@ -290,8 +290,6 @@ void InstallerAsistant::installer(){
 	action("mkdir -p /var/run/namedb");
 	action("mkdir -p /etc/namedb/master");
 	action("mkdir -p /etc/namedb/working");
-
-
 	//Movemos los archivos a las carpetas correspondientes
 	cout << "Moviendo: named.conf" << endl; 
 	action("mv named.conf /etc/");
@@ -299,8 +297,6 @@ void InstallerAsistant::installer(){
 	action("mv -f " + filename1 + " /etc/namedb/master/");
 	cout << "Moviendo: " << filename2 << endl;
 	action("mv -f "  + filename2 + " /etc/namedb/master/");
-
-
 	//Validamos que la configuracion de nuestros archivos funcionen
 	cout << "Moviendo el archivo de configuracion a /etc/" << endl;
 	action("named-checkconf /etc/named.conf");
@@ -324,8 +320,6 @@ void InstallerAsistant::installer(){
 
 
 	}
-
-
 	//Agregamos a nuestro cliente dns local nuestro servidor dns
 	cout << "Habilitando su servidor DNS en el cliente del host local..." << endl;
 	action("svccfg -s network/dns/client setprop config/nameserver = net_address: " + ip);
